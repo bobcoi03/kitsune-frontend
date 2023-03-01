@@ -7,6 +7,7 @@ import {
   Input,
   Grid,
   Avatar,
+  Checkbox
 } from "@nextui-org/react";
 import SwapFrom from "./SwapFrom";
 import SwapTo from "./SwapTo";
@@ -49,14 +50,13 @@ export default function Widget() {
       <Card.Divider />
       <Grid.Container gap={2} justify="center">
         <Grid css={{ border: "0px solid", borderColor: "white", display: 'flex'}} justify="center" alignContent="center" alignItems="center">
-          <Switch size={"sm"} />
+        <Checkbox size="sm" defaultSelected>Custom recipient</Checkbox>
         </Grid>
         <Grid css={{ border: "0px solid", borderColor: "white" }}>
           <Input
             size="sm"
             bordered
-            label={"Custom recipient"}
-            placeholder="0x....."
+            placeholder="0x......"
             width={"300px"}
           />
         </Grid>
