@@ -13,8 +13,6 @@ import SwapTo from "./SwapTo";
 import { useState } from "react";
 
 export default function Widget() {
-
-
   return (
     <Card css={{ mw: "500px" }}>
       <Card.Header>
@@ -46,15 +44,21 @@ export default function Widget() {
       <SwapTo />
 
       <Card.Header>
-        <Text b>Custom Recipient</Text>
+        <Text b>Options</Text>
       </Card.Header>
       <Card.Divider />
       <Grid.Container gap={2} justify="center">
-        <Grid css={{ border: "0px solid", borderColor: "white" }}>
-          <Switch size={"sm"}  />
+        <Grid css={{ border: "0px solid", borderColor: "white", display: 'flex'}} justify="center" alignContent="center" alignItems="center">
+          <Switch size={"sm"} />
         </Grid>
         <Grid css={{ border: "0px solid", borderColor: "white" }}>
-          <Input size="sm" bordered placeholder="0x....." width={'300px'} />
+          <Input
+            size="sm"
+            bordered
+            label={"Custom recipient"}
+            placeholder="0x....."
+            width={"300px"}
+          />
         </Grid>
       </Grid.Container>
       <Card.Divider />
