@@ -73,7 +73,7 @@ export default function AddOrderModal() {
         <Text css={{ alignSelf: "center" }}>
           Select the token you'd like to swap.
         </Text>
-        <Radio.Group label="Tokens" defaultValue={tokens[0]} value={pickedToken} onChange={setPickedToken}>
+        <Radio.Group label="Tokens" value={pickedToken} onChange={setPickedToken}>
           {tokens.map((token) => (
             <Radio key={token} value={token} isDisabled={tokenInOrders(token)}>
               {token}

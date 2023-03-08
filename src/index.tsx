@@ -19,6 +19,7 @@ const darkThemeNextUI = createTheme({
     colors: {
       primary: "#e96211",
       primaryShadow: "#e96211",
+      primarySolidHover: "#e96211",
     },
   },
 });
