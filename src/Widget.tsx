@@ -15,37 +15,64 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import AddOrderModal from "./AddOrderModal";
+import StartCardDisconnected from "./helpers/StartCardDisconnected";
+import StartCardConnected from "./helpers/StartCardConnected";
+import {
+  useConnectModal,
+  useAccountModal,
+  useChainModal,
+} from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
 
+enum ActionType {
+  ADD_ORDER = "ADD_ORDER",
+  EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
+  SET_TARGET_TOKEN = "SET_TARGET_TOKEN",
+  DELETE_ORDER = "DELETE_ORDER",
+  OPEN_MODAL = "OPEN_MODAL",
+  CLOSE_MODAL = "CLOSE_MODAL",
+  SET_CUSTOM_RECIPIENT = "SET_CUSTOM_RECIPIENT",
+  TOGGLE_CUSTOM_RECIPIENT = "TOGGLE_CUSTOM_RECIPIENT",
+}
 export default function Widget() {
-
-  enum ActionType {
-    ADD_ORDER = "ADD_ORDER",
-    EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
-    SET_TARGET_TOKEN = "SET_TARGET_TOKEN",
-    DELETE_ORDER = "DELETE_ORDER",
-    OPEN_MODAL = "OPEN_MODAL",
-    CLOSE_MODAL = "CLOSE_MODAL",
-  }
-
-  const [isCustomRecipient, setIsCustomRecipient] = useState(false);
-  const [customRecipient, setCustomRecipient] = useState("");
-
+  const isCustomRecipientSelected = useSelector(
+    (state: AppState) => state.isCustomRecipient
+  );
   const orders = useSelector((state: AppState) => state.orders);
   const isModalOpen = useSelector((state: AppState) => state.openModal);
+  const customRecipient = useSelector(
+    (state: AppState) => state.customRecipient
+  );
   const dispatch = useDispatch();
-  function handleCustomRecipientCheckbox() {
-    setIsCustomRecipient(!isCustomRecipient);
-  }
 
-  function handleCustomRecipientInput(event: any) {
-    event.preventDefault();
-    setCustomRecipient(event.target.value);
+  const { openConnectModal } = useConnectModal();
+  const { openAccountModal } = useAccountModal();
+  const { openChainModal } = useChainModal();
+  const { address, isConnecting, isDisconnected } = useAccount();
+
+  function handleCustomRecipientCheckbox() {
+    console.log(isCustomRecipientSelected);
+    dispatch({
+      type: ActionType.TOGGLE_CUSTOM_RECIPIENT,
+      payload: !isCustomRecipientSelected,
+    });
+    console.log(isCustomRecipientSelected);
   }
 
   function handleModalOpen() {
     dispatch({ type: ActionType.OPEN_MODAL, payload: { openModal: true } });
     console.log(isModalOpen);
-    
+  }
+
+  function handleCustomRecipientInput(event: any) {
+    event.preventDefault();
+    console.log(event.target.value);
+    console.log("stuff");
+    dispatch({
+      type: ActionType.SET_CUSTOM_RECIPIENT,
+      payload: event.target.value,
+    });
+    console.log(customRecipient);
   }
 
   return (
@@ -53,13 +80,21 @@ export default function Widget() {
       <AddOrderModal />
       <Card css={{ mw: "500px" }}>
         <Card.Header>
-          <Text b>🦊 Kitsune Finance</Text>
+          <Text b>Swap</Text>
         </Card.Header>
         <Card.Divider />
 
-        {orders.map((order, key) => {
-          return <SwapFrom key={key} token={order.tokenFrom} />;
-        })}
+        {orders.length != 0 ? (
+          orders.map((order, key) => {
+            return <SwapFrom key={key} token={order.tokenFrom} />;
+          })
+        ) : (
+          isDisconnected ? (
+            <StartCardDisconnected />
+          ) : (
+            <StartCardConnected />
+          )
+        )}
 
         <div style={{ alignSelf: "center" }}>
           <Avatar
@@ -77,7 +112,7 @@ export default function Widget() {
               </svg>
             }
             size={"md"}
-            onClick={handleModalOpen}
+            onClick={isDisconnected ? openConnectModal : handleModalOpen}
           />
         </div>
 
@@ -99,14 +134,31 @@ export default function Widget() {
             </Checkbox>
           </Grid>
           <Grid css={{ border: "0px solid", borderColor: "white" }}>
-            <Input size="sm" bordered placeholder="0x......" width={"300px"} />
+            <Input
+              disabled={!isCustomRecipientSelected}
+              size="sm"
+              bordered
+              placeholder="0x......"
+              width={"300px"}
+              onInput={(e) => handleCustomRecipientInput(e)}
+            />
           </Grid>
         </Grid.Container>
         <Card.Divider />
 
-        <Button css={{ margin: "20px" }} size="xl" shadow>
-          Swap!
-        </Button>
+        {isDisconnected ? (
+          <Button onClick={openConnectModal} css={{ margin: "20px" }} size="xl">
+            Connect Wallet
+          </Button>
+        ) : (
+          <Button
+            onClick={() => alert("Swap test")}
+            css={{ margin: "20px" }}
+            size="xl"
+          >
+            Swap
+          </Button>
+        )}
       </Card>
     </>
   );

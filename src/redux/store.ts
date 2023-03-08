@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-
 enum ActionType {
   ADD_ORDER = "ADD_ORDER",
   EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
@@ -8,22 +7,17 @@ enum ActionType {
   DELETE_ORDER = "DELETE_ORDER",
   OPEN_MODAL = "OPEN_MODAL",
   CLOSE_MODAL = "CLOSE_MODAL",
+  SET_CUSTOM_RECIPIENT = "SET_CUSTOM_RECIPIENT",
+  TOGGLE_CUSTOM_RECIPIENT = "TOGGLE_CUSTOM_RECIPIENT",
 }
 
 // Define the reducer
 const initialState: AppState = {
-  orders: [
-    {
-      tokenFrom: 'DAI',
-      amount: 0,
-    },
-    {
-      tokenFrom: 'USDC',
-      amount: 0,
-    }
-  ],
+  orders: [],
   openModal: false,
   targetToken: "ETH",
+  customRecipient: "",
+  isCustomRecipient: false,
 };
 
 function reducer(state: AppState = initialState, action: Action): AppState {
@@ -51,12 +45,15 @@ function reducer(state: AppState = initialState, action: Action): AppState {
       return { ...state, openModal: true };
     case ActionType.CLOSE_MODAL:
       return { ...state, openModal: false };
+    case ActionType.SET_CUSTOM_RECIPIENT:
+      return { ...state, customRecipient: action.payload };
+    case ActionType.TOGGLE_CUSTOM_RECIPIENT:
+      return { ...state, isCustomRecipient: action.payload };
+
     default:
       return state;
   }
 }
-
-
 
 // Create the store
 const store = configureStore({

@@ -10,14 +10,13 @@ import {
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import {Modal} from "@nextui-org/react";
 enum ActionType {
   ADD_ORDER = "ADD_ORDER",
   EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
   SET_TARGET_TOKEN = "SET_TARGET_TOKEN",
   DELETE_ORDER = "DELETE_ORDER",
 }
-
 
 interface SwapFromProps {
   token: string;
@@ -39,7 +38,6 @@ export default function SwapFrom(props: SwapFromProps) {
   function handleDeleteOrder() {
     dispatch(deleteOrder(props.token));
   }
-  
 
   const dispatch = useDispatch();
 
@@ -50,11 +48,9 @@ export default function SwapFrom(props: SwapFromProps) {
     console.log(orders);
   }
 
-
   return (
     <Card
       css={{
-        alignItems: "center",
         width: "90%",
         border: "1px solid",
         borderColor: "white",
@@ -67,19 +63,16 @@ export default function SwapFrom(props: SwapFromProps) {
         <Grid.Container>
           <Grid xs={6} direction="column">
             <Text b>{`${props.token}`}</Text>
-            <Text size={"$xs"}>Balance: ...</Text>
-            <Badge isSquared color="success" variant="bordered">
-              {`+ 0.34 ${targetToken}`}
-            </Badge>
+            <Text size={"$sm"}>Balance: 121.33</Text>
           </Grid>
           <Grid xs={5}>
             <Input
               size="lg"
               bordered
-              labelRight={`${props.token}`}
+              
               placeholder="0.00"
               animated={false}
-              onInput={handleAmountInput}
+              onInput={(e) => handleAmountInput(e)}
             />
           </Grid>
           <Grid xs={1} justify="flex-end" alignItems="center">

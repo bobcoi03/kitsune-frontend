@@ -14,6 +14,8 @@ interface AppState {
   orders: OrderToSwap[];
   openModal: boolean;
   targetToken: string;
+  customRecipient: string,
+  isCustomRecipient: boolean,
 }
 
 // Define the actions
@@ -46,10 +48,23 @@ interface SetTargetTokenAction {
   payload: string;
 }
 
+interface SetCustomRecipientAction {
+  type: ActionType.SET_CUSTOM_RECIPIENT;
+  payload: string;
+}
+
+interface ToggleCustomRecipientAction {
+  type: ActionType.TOGGLE_CUSTOM_RECIPIENT;
+  payload: boolean;
+}
+
 type Action =
   | AddOrderAction
   | EditOrderAmountAction
   | SetTargetTokenAction
   | DeleteOrderAction
   | OpenModalAction
-  | CloseModalAction;
+  | CloseModalAction
+  | SetCustomRecipientAction
+  | ToggleCustomRecipientAction;
+

@@ -2,6 +2,7 @@ import { Modal, Text, Input, Radio, Row, Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+
 enum ActionType {
   ADD_ORDER = "ADD_ORDER",
   EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
@@ -38,6 +39,18 @@ export default function AddOrderModal() {
 
   const [pickedToken, setPickedToken] = useState<string>("UNI");
 
+  function tokenInOrders(token: string) {
+    return orders.some((order) => order.tokenFrom === token);
+  }
+
+  const tokens = [
+    "UNI",
+    "MATIC",
+    "DAI",
+    "APE",
+    "USDC",
+  ]
+
   return (
     <Modal
       closeButton
@@ -60,12 +73,12 @@ export default function AddOrderModal() {
         <Text css={{ alignSelf: "center" }}>
           Select the token you'd like to swap.
         </Text>
-        <Radio.Group label="Tokens" defaultValue="UNI" value={pickedToken} onChange={setPickedToken}>
-          <Radio value="UNI">UNI</Radio>
-          <Radio value="MATIC">MATIC</Radio>
-          <Radio value="DAI">DAI</Radio>
-          <Radio value="APE">APE</Radio>
-          <Radio value="USDC">USDC</Radio>
+        <Radio.Group label="Tokens" defaultValue={tokens[0]} value={pickedToken} onChange={setPickedToken}>
+          {tokens.map((token) => (
+            <Radio key={token} value={token} isDisabled={tokenInOrders(token)}>
+              {token}
+            </Radio>
+          ))}
         </Radio.Group>
       </Modal.Body>
       <Modal.Footer>
