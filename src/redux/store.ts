@@ -9,6 +9,7 @@ enum ActionType {
   CLOSE_MODAL = "CLOSE_MODAL",
   SET_CUSTOM_RECIPIENT = "SET_CUSTOM_RECIPIENT",
   TOGGLE_CUSTOM_RECIPIENT = "TOGGLE_CUSTOM_RECIPIENT",
+  CLEAR_ALL_ORDERS = "CLEAR_ALL_ORDERS"
 }
 
 // Define the reducer
@@ -49,6 +50,8 @@ function reducer(state: AppState = initialState, action: Action): AppState {
       return { ...state, customRecipient: action.payload };
     case ActionType.TOGGLE_CUSTOM_RECIPIENT:
       return { ...state, isCustomRecipient: action.payload };
+    case ActionType.CLEAR_ALL_ORDERS:
+      return {...state, orders: []}
 
     default:
       return state;

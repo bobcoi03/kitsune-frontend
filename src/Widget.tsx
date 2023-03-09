@@ -33,7 +33,9 @@ enum ActionType {
   CLOSE_MODAL = "CLOSE_MODAL",
   SET_CUSTOM_RECIPIENT = "SET_CUSTOM_RECIPIENT",
   TOGGLE_CUSTOM_RECIPIENT = "TOGGLE_CUSTOM_RECIPIENT",
+  CLEAR_ALL_ORDERS = "CLEAR_ALL_ORDERS"
 }
+
 export default function Widget() {
   const isCustomRecipientSelected = useSelector(
     (state: AppState) => state.isCustomRecipient
@@ -48,7 +50,12 @@ export default function Widget() {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
   const { openChainModal } = useChainModal();
-  const { address, isConnecting, isDisconnected } = useAccount();
+  const { address, isConnecting, isDisconnected } = useAccount({
+    onDisconnect() {
+      handleDisconnect()
+      console.log("Disconnected")
+    }
+  });
 
   function handleCustomRecipientCheckbox() {
     console.log(isCustomRecipientSelected);
@@ -74,6 +81,13 @@ export default function Widget() {
     });
     console.log(customRecipient);
   }
+
+  function handleDisconnect() {
+    dispatch({
+      type: ActionType.CLEAR_ALL_ORDERS
+    })
+  }
+
 
   return (
     <>
