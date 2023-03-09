@@ -12,9 +12,23 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {Modal} from "@nextui-org/react";
 import { AppState, ActionType } from "./types/types";
+import tokens from "./SampleTokens";
+import { useToken, erc20ABI, useContractRead, useAccount } from "wagmi";
 
 interface SwapFromProps {
   token: string;
+}
+
+function tokenToAddress(symbol: string) {
+  let address;
+
+  tokens.forEach(e => {
+    if (e.id === symbol) {
+      address = e.address
+    }
+  });
+
+  return address
 }
 
 export default function SwapFrom(props: SwapFromProps) {
@@ -42,6 +56,18 @@ export default function SwapFrom(props: SwapFromProps) {
     dispatch(editOrderAmount(props.token, event.target.value));
     console.log(orders);
   }
+
+  const {address} = useAccount()
+
+  const { data, isError, isLoading } = useContractRead({
+    address: tokenToAddress(props.token),
+    abi: erc20ABI,
+    functionName: 'balanceOf',
+    args: [''],
+    onSuccess(){
+      console.log(data)
+    }
+  })
 
   return (
     <Card

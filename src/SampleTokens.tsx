@@ -1,24 +1,21 @@
 const tokens = [
-    // {
-    //     value: 'ETH',
-    //     label: 'ETH',
-    //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/628px-Ethereum_logo_2014.svg.png',
-    //     describe: 'Ethereum',
-    // }
     {
         id: 'DAI',
-        image: 'https://cryptologos.cc/logos/multi-collateral-dai-dai-logo.png',
+        address: '0x6b175474e89094c44da98b954eedeac495271d0f'
 
     },
     {
         id: 'MATIC',
-        image: 'https://cryptologos.cc/logos/polygon-matic-logo.png',
+        address: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+    },
+    {
+        id: 'APE',
+        image: '0x4d224452801aced8b2f0aebe155379bb5d594381'
     },
     {
         id: 'UNI',
-        image: 'https://cryptologos.cc/logos/uniswap-uni-logo.png',
-
-    }
+        address: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984'
+    },
 ]
 
 export default tokens;
