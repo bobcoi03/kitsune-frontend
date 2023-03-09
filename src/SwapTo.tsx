@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Button, Card, Text, Grid, Input, Collapse } from "@nextui-org/react";
+import { AppState } from './types/types';
 
 export default function SwapTo() {
 

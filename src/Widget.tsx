@@ -23,18 +23,7 @@ import {
   useChainModal,
 } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-
-enum ActionType {
-  ADD_ORDER = "ADD_ORDER",
-  EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
-  SET_TARGET_TOKEN = "SET_TARGET_TOKEN",
-  DELETE_ORDER = "DELETE_ORDER",
-  OPEN_MODAL = "OPEN_MODAL",
-  CLOSE_MODAL = "CLOSE_MODAL",
-  SET_CUSTOM_RECIPIENT = "SET_CUSTOM_RECIPIENT",
-  TOGGLE_CUSTOM_RECIPIENT = "TOGGLE_CUSTOM_RECIPIENT",
-  CLEAR_ALL_ORDERS = "CLEAR_ALL_ORDERS"
-}
+import { AppState, ActionType } from "./types/types";
 
 export default function Widget() {
   const isCustomRecipientSelected = useSelector(

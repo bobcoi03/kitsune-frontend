@@ -11,12 +11,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {Modal} from "@nextui-org/react";
-enum ActionType {
-  ADD_ORDER = "ADD_ORDER",
-  EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
-  SET_TARGET_TOKEN = "SET_TARGET_TOKEN",
-  DELETE_ORDER = "DELETE_ORDER",
-}
+import { AppState, ActionType } from "./types/types";
 
 interface SwapFromProps {
   token: string;

@@ -2,15 +2,8 @@ import { Modal, Text, Input, Radio, Row, Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { AppState, ActionType } from "./types/types";
 
-enum ActionType {
-  ADD_ORDER = "ADD_ORDER",
-  EDIT_ORDER_AMOUNT = "EDIT_ORDER_AMOUNT",
-  SET_TARGET_TOKEN = "SET_TARGET_TOKEN",
-  DELETE_ORDER = "DELETE_ORDER",
-  OPEN_MODAL = "OPEN_MODAL",
-  CLOSE_MODAL = "CLOSE_MODAL",
-}
 
 export default function AddOrderModal() {
   const visible = useSelector((state: AppState) => state.openModal);
