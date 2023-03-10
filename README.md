@@ -1,6 +1,6 @@
 # 🦊KitsuneFinance
 
-#### This is an alpha version, please do *NOT* connect to your main wallet
+#### This is an alpha version, please do NOT connect to your main wallet
 
 ⚠️Alpha Version⚠️ at https://kitsunefinance.xyz 
 ##
