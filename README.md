@@ -1,5 +1,7 @@
 # 🦊KitsuneFinance
 
+⚠️Alpha Version⚠️ at kitsunefinance.xyz
+
 ## Installation
 
 ### Clone the repository 
