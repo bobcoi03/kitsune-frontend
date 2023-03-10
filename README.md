@@ -1,6 +1,6 @@
 # 🦊KitsuneFinance
 
-⚠️Alpha Version⚠️ at https://kitsunefinance.xyz
+⚠️Alpha Version⚠️ at https://kitsunefinance.xyz (This is an alpha version, please do *NOT* connect to your main wallet)
 ##
 ## Installation
 
