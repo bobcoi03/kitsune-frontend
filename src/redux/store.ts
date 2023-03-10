@@ -4,6 +4,7 @@ import { ActionType, AppState, Action } from "../types/types";
 // Define the reducer
 const initialState: AppState = {
   orders: [],
+  ordersResults: [],
   openModal: false,
   targetToken: "ETH",
   customRecipient: "",
@@ -15,10 +16,10 @@ function reducer(state: AppState = initialState, action: Action): AppState {
     case ActionType.ADD_ORDER:
       return { ...state, orders: [...state.orders, action.payload] };
     case ActionType.EDIT_ORDER_AMOUNT:
-      const { token, amount } = action.payload;
+      const { token, amountFrom } = action.payload;
       const updatedOrders = state.orders.map((order) => {
         if (order.tokenFrom === token) {
-          return { ...order, amount };
+          return { ...order, amountFrom };
         }
         return order;
       });
@@ -30,7 +31,14 @@ function reducer(state: AppState = initialState, action: Action): AppState {
       const filteredOrders = state.orders.filter(
         (order) => order.tokenFrom !== tokenFrom
       );
-      return { ...state, orders: filteredOrders };
+      const filteredOrderResults = state.ordersResults.filter(
+        (order) => order.tokenFrom !== tokenFrom
+      );
+      return {
+        ...state,
+        orders: filteredOrders,
+        ordersResults: filteredOrderResults,
+      };
     case ActionType.OPEN_MODAL:
       return { ...state, openModal: true };
     case ActionType.CLOSE_MODAL:
@@ -40,8 +48,17 @@ function reducer(state: AppState = initialState, action: Action): AppState {
     case ActionType.TOGGLE_CUSTOM_RECIPIENT:
       return { ...state, isCustomRecipient: action.payload };
     case ActionType.CLEAR_ALL_ORDERS:
-      return {...state, orders: []}
-
+      return { ...state, orders: [], ordersResults: [] };
+    case ActionType.ADD_ORDER_RESULT:
+      // clear previous order result based on tokenFrom
+      const { tokenFrom: tokenFromResult } = action.payload;
+      const filteredOrderResults2 = state.ordersResults.filter(
+        (order) => order.tokenFrom !== tokenFromResult
+      );
+      return {
+        ...state,
+        ordersResults: [...filteredOrderResults2, action.payload],
+      };
     default:
       return state;
   }
