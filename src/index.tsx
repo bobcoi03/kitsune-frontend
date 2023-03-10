@@ -55,6 +55,7 @@ const root = ReactDOM.createRoot(
 
 
 root.render(
+  <React.StrictMode>
   <Provider store={store}>
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider coolMode chains={chains} theme={myTheme}>
@@ -64,4 +65,5 @@ root.render(
       </RainbowKitProvider>
     </WagmiConfig>
   </Provider>
+  </React.StrictMode>
 );

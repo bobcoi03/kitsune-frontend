@@ -14,7 +14,7 @@ export default function AddOrderModal() {
   }
 
   function addOrder(token: string) {
-    return {type: ActionType.ADD_ORDER, payload: {tokenFrom: token, amount: 0}}
+    return {type: ActionType.ADD_ORDER, payload: {tokenFrom: token, amountFrom: 0, amountTo: 0}}
   }
 
   function handleAddOrder(token: string) {
