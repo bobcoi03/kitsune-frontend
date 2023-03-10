@@ -1,6 +1,6 @@
 # 🦊KitsuneFinance
 
-⚠️Alpha Version⚠️ at <kitsunefinance.xyz>
+⚠️Alpha Version⚠️ at https://kitsunefinance.xyz
 
 ## Installation
 
